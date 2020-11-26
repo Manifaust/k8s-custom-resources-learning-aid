@@ -1,5 +1,9 @@
+Now that we know how the sample-controller works, we'll break down how it was created. The project takes advantage of the [code-generator](https://github.com/kubernetes/code-generator project to create the clientset and other components. 
+
+We've copied some important scripts and configuratoins from sample-controller into `k8s-custom-resource-lessons/kcrl-client-go`. In this lesson we'll go over these files to see how `code-generator` is run.
+
 # Generating a client
-Looking inside the `update-codegen.sh` script, we see that it calls another script inside the `vendor` directory named `generate-groups.sh` from the [code-generator](https://github.com/kubernetes/code-generator) project. The script takes in files from our project that describes the custom resource and group we're creating and uses them to generate the clients, listers, informers, and deepcopy functions that correspond with that resource.
+Looking inside the `hack/update-codegen.sh` script, we see that it calls another script inside the `vendor` directory named `generate-groups.sh` from `code-generator`. The script takes in files from our project that describes the custom resource and group we're creating and uses them to generate the clients, listers, informers, and deepcopy functions that correspond with that resource.
 
 Looking at the script in detail:
 
@@ -12,7 +16,7 @@ $ vendor/k8s.io/code-generator/generate-groups.sh all \
     --go-header-file "hack/boilerplate.go.txt"
 ```
 
-`gegnerate-groups.sh` take these parameters:
+`generate-groups.sh` take these parameters:
 1.  `all` - tells the script to use all the generators.
 2.  `.../pkg/generated` - the output directory to put the generated clientset.
 3.  `.../pkg/apis` - the input directory to feed in four files that describe our group and resource which `code-generator` needs:
