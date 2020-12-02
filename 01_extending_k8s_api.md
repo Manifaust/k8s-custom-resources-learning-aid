@@ -26,11 +26,11 @@ In a k8s-focused organization, it benefits everyone to collaborate and communica
 
 # What does "k8s native" mean?
 I mentioned several times that it's important that we build software in a k8s native way (and this study aid helps you learn how to do that), I didn't explain what that actually means. Well *k8s native* is a made up phrase that doesn't have an exact definition. In general, when people say Kubernetes native, they mean the relevant software:
+* Is aware that it's running inside k8s and so takes advantage of the k8s API and libraries. It's not just a generic containerized app or service.
 * Follows k8s community conventions and patterns when it comes to how it is deployed, configured, and how it works.
 * Supports interoperability with the k8s ecosystem, including OSS projects, and other k8s native projects.
 * Utilizes k8s bulding blocks like pods and deployments instead of reinventing the wheel.
 
-In general, successful k8s software tends to understand and play nicely with the existing community. The phrase *k8s native* might only be useful as a contrast against a *worst* type of software that is inflexible, and wants to cram existing ways of working without fitting into a new model of work.
+In general, successful k8s software tends to understand and play nicely with the existing community. The phrase *k8s native* might only be useful as a contrast against a *incongruous* type of software that is inflexible, and wants to cram existing ways of working without fitting into a new model of work.
 
 It's worth pointing out that the community is growing and evolving too, so new patterns will emerge to supplant old patterns. In the mean time, it's useful to learn what the existing conventions are, and hopefully this learning aid help you do that.
-
