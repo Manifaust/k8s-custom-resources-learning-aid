@@ -1,3 +1,5 @@
+*The basic objective of custom resources and controllers is to extend the k8s API (and provide these extensions to the user). Here are my thoughts about what that means and what it's important.*
+
 # Extending the k8s API
 Extending the k8s API means doing more than just containerizing an app, and creating a deployment for that app. It includes:
 * Creating your own k8s object and concepts. k8s comes with a default set of objects like pods and replicasets, but you can create your own.
