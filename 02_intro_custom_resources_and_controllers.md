@@ -83,7 +83,7 @@ That example is over-simplified and fails to handle a bunch of cases, including 
 
 Check out the slide deck [*What is reconcilliation?*](https://speakerdeck.com/thockin/kubernetes-what-is-reconciliation) a more detailed illustration.
 
-# Implementing a Controller
+# How Controllers are Written and Run
 So far we've talked abstractly about the controller taking action and executing commands. But the only concrete examples of kicking off tasks have all involved using `kubectl` on the terminal.
 
 We won't talk about it in detail here, but I just want to finish this section by saying that controllers are just programs (Golang, Ruby, etc. applications) you write that run in the background somewhere. The first controller tutorials I reference later on will get you running an example Golang-written controller in the terminal, and hooking onto a local minikube. In production, the controller will be running in the target k8s cluster itself.
