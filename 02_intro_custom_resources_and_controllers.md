@@ -18,7 +18,6 @@ spec:
   city: Toronto, ON
   time: '0700'
   email: foo@example.com
-
 ```
 
 Then they can run `kubectl apply -f my-weather-reminder.yml` to create that custom resource. Once created, a `Reminder` object will now exist inside the cluster and can be searched for, examined, and deleted just like other k8s objects.
@@ -36,16 +35,29 @@ At this point, it's worth talking about certain related concepts/patterns that c
 ## Declarative vs. Imperative
 When a k8s user wants to take action, whether it's the creation of a deployment of the running of a Tekton task, the convention they follow should not be to write a script filled with commands to execute (i.e. the imperative model).
 
-They expect to follow the common k8s pattern of writing a yaml file (custom resource) that describes the object or task they want to create (i.e. the declarative model). They just want to state their intention, or end result, so as much as possible the custom resource and controller should abstract away all the steps it takes to realize the user's vision.
+They expect to follow the common k8s pattern of writing a yaml file (custom resource) that describes the object or task they want to create (i.e. the declarative model). They just want to state their intention, or end result, so as much as possible the custom resource and controller should abstract away all the steps it takes to realize the user's vision. The `my-weather-example.yml` example from before is an example of the user stating that they want a notification about the weather at a specific time without having to tell the service how to do it.
 
-This is one reason why there's so much yaml when working with k8s.
+This common use of the declaraive pattern is why there's so much yaml when working with k8s.
 
 ## Spec and Status
 The concept of user intent appears when you design custom resource definitions as well. As you'll see later, custom types have have many properties and conventions, one of which is the separation of two properties: *spec* and *status*.
 
-Spec is the property of a custom resource that holds user intent. It's basically all the fields that the user configured, which represents the future state they want.
+Spec is the property of a custom resource that holds user intent. It's basically all the fields that the user configured, which represents the future state they want. Here's the `spec` section of the `my-weather-reminder.yml` example from before.
 
-Status is the property that holds the current state of the system. It's supposed to be continuously updated by the controller, and can be read by the user. By reading the state of a custom resource, the user (and other controllers) knows whether an object or action has started, failed, or is in progress. 
+```yaml
+# my-weather-reminder.yml
+...
+spec:
+  city: Toronto, ON
+  time: '0700'
+  email: foo@example.com
+```
+
+Status is the property that holds the current state of the system. It's supposed to be continuously updated by the controller, and can be read by the user. By reading the state of a custom resource, the user (and other controllers) knows whether an object or action has started, failed, or is in progress. For the user to view the status of their weather reminder, they might run a command like this:
+
+```
+$ kubectl describe reminders reminder-toronto
+```
 
 Corollary to that point, it's perfectly normal that there exists some time delay between before the user expressing their intent and the controller (and other processes) completing the necessary actions to realize that intent. This asynchronous, non-blocking way of working is how k8s resources are expected to be implemented. We can contrast this to some traditional *API-driven* designs where once the user sends a request, the server may not send a response until the relevant transaction is done and the user's desire is met.
 
@@ -58,9 +70,18 @@ Now we're ready to describe what a controller loop looks like:
 5. Update the current state.
 6. Repeat
 
-This is pattern is called **reconcilliation** and this type of loop appears in many places in k8s. You will be expected to recognize this pattern when you see it, and when you design your own custom controller, you'll be expected to implement this pattern.
+This is pattern is called **reconcilliation** and this type of loop appears in many places in k8s. You will be expected to recognize this pattern when you see it, and when you design your own custom controller, you'll be expected to implement this pattern. To use the weather reminder example, here what a potential reminder controller loop might look like:
 
-Check out the slide deck [What is reconcilliation](https://speakerdeck.com/thockin/kubernetes-what-is-reconciliation) a more detailed illustration.
+1. Look at all the weather reminder resources.
+2. Check the target time of each reminder.
+3. For each resource, if the current status is `ready`, and the target time matches the current time, then move on to the next step. Otherwise, don't do anything yet with this reminder.
+4. Schedule a container to fetch the weather and send an email.
+5. Update the status of the resource to be `successful`.
+6. Wait for a bit and start again from the top.
+
+That example is over-simplified and fails to handle a bunch of cases, including failures. But it paints a picture of the type of logic that we'll need to implement later on.
+
+Check out the slide deck [*What is reconcilliation?*](https://speakerdeck.com/thockin/kubernetes-what-is-reconciliation) a more detailed illustration.
 
 # Implementing a Controller
 So far we've talked abstractly about the controller taking action and executing commands. But the only concrete examples of kicking off tasks have all involved using `kubectl` on the terminal.
