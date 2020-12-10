@@ -6,7 +6,7 @@ Custom resources and custom controllers are concepts in k8s that allow developer
 ## Custom Resource Definitions (CRDs) and Custom Resources
 Developers are not limited to using defaults k8s types such as pods, deployments, and replicasets in their k8s clusters. They can define their own types such using custom resource definitions (CRDs) and provide them to users to install. Once installed, users can then create custom resources from CRDs. Creates custom resources are stored in the k8s cluster next to regular resources.
 
-Soon we'll see some examples from Tekton, which is a project that provides CRDs for CI/CD concepts such as tasks and pipelines. After installing CRDs, users can create their own instances of tasks and pipelines and custom them.
+Soon we'll see some examples from Tekton, which is a project that provides CRDs for CI/CD concepts such as tasks and pipelines. After installing CRDs, users can create their own instances of tasks and pipelines and customize them.
 
 As another example, say we want to create a CRD and controller that allow users to receive weather reports every day. Our CRD will declare which fields are required for creating such reports, such as weather location, time of reminder, and destination email address to send the reminder email. After the user installs our CRD they can write a custom resource yaml:
 
