@@ -1,5 +1,7 @@
+*This section describes at a high level what customer resources and controllers are. As well, we talk about some general patterns the appear when working with and implementing controllers*
+
 # Custom Resources and Custom Controllers
-Custom resources and custom controllers are concepts in k8s that allow developers to extend the k8s and provide those extensions to users. You can think.  
+Custom resources and custom controllers are concepts in k8s that allow developers to extend the k8s and provide those extensions to users.
 
 ## Custom Resource Definitions (CRDs) and Custom Resources
 Developers are not limited to using defaults k8s types such as pods, deployments, and replicasets in their k8s clusters. They can define their own types such using custom resource definitions (CRDs) and provide them to users to install. Once installed, users can then create custom resources from CRDs. Creates custom resources are stored in the k8s cluster next to regular resources.
