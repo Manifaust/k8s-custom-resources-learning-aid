@@ -15,11 +15,11 @@ As another example, say we want to create a CRD and controller that allow users 
 apiVersion: weather.com/v1alpha1
 kind: Reminder
 metadata:
-  name: reminder-toronto
+   name: reminder-toronto
 spec:
-  city: Toronto, ON
-  time: '0700'
-  email: foo@example.com
+   city: Toronto, ON
+   time: '0700'
+   email: foo@example.com
 ```
 
 Then they can run `kubectl apply -f my-weather-reminder.yml` to create that custom resource. Once created, a `Reminder` object will now exist inside the cluster and can be searched for, examined, and deleted just like other k8s objects.
@@ -32,12 +32,12 @@ A controller is a program that run in the background, paying attention to the cr
 Using our weather reminder example again, to support the `Reminder` CRD, we need to create a controller that pay attention to the existance of user created `Reminder` resources. We might implement it to run periodically to list all the `Reminder` resources and see if it's the right time to check the weather for one of them. When the time comes, it will create a pod to run a script to query the weather and send an email.
 
 # Recurring Concepts
-At this point, it's worth talking about certain related concepts/patterns that come up again and again in k8s. You'll be expect to recognize and understand these patterns when you're using using k8s software. Furthermore, you'll need to implement these patterns when developing k8s native resources and controllers. These patterns are baked into how k8s itself works and plays a large part in the user's mental model when they approach a new piece of k8s software. 
+At this point, it's worth talking about certain related concepts/patterns that come up again and again in k8s. You'll be expected to recognize and understand these patterns when you're using using k8s software. Furthermore, you'll need to implement these patterns when developing k8s native resources and controllers. These patterns are baked into how k8s itself works and plays a large part in the user's mental model when they approach a new piece of k8s software. 
 
 ## Declarative vs. Imperative
-When a k8s user wants to take action, whether it's the creation of a deployment of the running of a Tekton task, the convention they follow should not be to write a script filled with commands to execute (i.e. the imperative model).
+When a k8s user wants to take action, whether it's the creation of a deployment or the running of a Tekton task, the convention they follow should not be to write a script filled with commands to execute (i.e. the imperative model).
 
-They expect to follow the common k8s pattern of writing a yaml file (custom resource) that describes the object or task they want to create (i.e. the declarative model). They just want to state their intention, or end result, so as much as possible the custom resource and controller should abstract away all the steps it takes to realize the user's vision. The `my-weather-example.yml` example from before is an example of the user stating that they want a notification about the weather at a specific time without having to tell the service how to do it.
+They expect to follow the common k8s pattern of writing a yaml file (custom resource) that describes the object or task they want to create (i.e. the declarative model). They just want to state their intention, or end result, so as much as possible the custom resource and controller should abstract away all the steps it takes to realize the user's vision. Applying `my-weather-reminder.yml` from before is an example of the user stating that they want a notification about the weather at a specific time without having to tell the service how to perform it.
 
 This common use of the declaraive pattern is why there's so much yaml when working with k8s.
 
@@ -50,9 +50,9 @@ Spec is the property of a custom resource that holds user intent. It's basically
 # my-weather-reminder.yml
 ...
 spec:
-  city: Toronto, ON
-  time: '0700'
-  email: foo@example.com
+   city: Toronto, ON
+   time: '0700'
+   email: foo@example.com
 ```
 
 Status is the property that holds the current state of the system. It's supposed to be continuously updated by the controller, and can be read by the user. By reading the state of a custom resource, the user (and other controllers) knows whether an object or action has started, failed, or is in progress. For the user to view the status of their weather reminder, they might run a command like this:
@@ -61,7 +61,7 @@ Status is the property that holds the current state of the system. It's supposed
 $ kubectl describe reminders reminder-toronto
 ```
 
-Corollary to that point, it's perfectly normal that there exists some time delay between before the user expressing their intent and the controller (and other processes) completing the necessary actions to realize that intent. This asynchronous, non-blocking way of working is how k8s resources are expected to be implemented. We can contrast this to some traditional *API-driven* designs where once the user sends a request, the server may not send a response until the relevant transaction is done and the user's desire is met.
+Corollary to that point, it's perfectly normal that there exists some time delay between before the user expressing their intent and the controller (and other processes) completing the necessary actions to realize that intent. This asynchronous, non-blocking way of working is how k8s resources are expected to be implemented. We can contrast this to some traditional *API-driven* designs where once the user sends a request, the server does not send a response until the relevant transaction is done and the user's desire is met.
 
 ## Reconcilliation
 Now we're ready to describe what a controller loop looks like:
@@ -70,7 +70,7 @@ Now we're ready to describe what a controller loop looks like:
 3. Check the status (current state) of those resources.
 4. Take the appropriate action to move the current state closer to the desired state.
 5. Update the current state.
-6. Repeat
+6. Repeat.
 
 This is pattern is called **reconcilliation** and this type of loop appears in many places in k8s. You will be expected to recognize this pattern when you see it, and when you design your own custom controller, you'll be expected to implement this pattern. To use the weather reminder example, here what a potential reminder controller loop might look like:
 
