@@ -1,3 +1,7 @@
+---
+aliases: [extend k8s]
+---
+
 *The basic objective of custom resources and controllers is to extend the k8s API (and provide these extensions to the user). Here are my thoughts about what that means and what it's important.*
 
 # Extending the k8s API
@@ -36,3 +40,6 @@ I mentioned several times that it's important that we build software in a k8s na
 In general, successful k8s software tends to understand and play nicely with the existing community. The phrase *k8s native* might only be useful as a contrast against a *incongruous* type of software that is inflexible, and wants to cram existing ways of working without fitting into a new model of work.
 
 It's worth pointing out that the community is growing and evolving too, so new patterns will emerge to supplant old patterns. In the mean time, it's useful to learn what the existing conventions are, and hopefully this learning aid help you do that.
+
+# More Reading
+* Watch Joe Beda's [k8s is a platform platform](https://www.youtube.com/watch?v=HN1c8-93hLs)
