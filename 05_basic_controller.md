@@ -209,7 +209,7 @@ Update the controller to implement the Reconcile logic:
 Start by editing `controllers/checkweather_controller.go` and updating the `Reconcile` function to implement the logic we described.
 
 ```go
-func (r *CheckWeatherReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error)
+func (r *CheckWeatherReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
   ctx := context.Background()
   log := r.Log.WithValues("namespace", req.Namespace, "checkweather", req.Name)
 
