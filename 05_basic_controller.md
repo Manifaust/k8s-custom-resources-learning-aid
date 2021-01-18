@@ -183,14 +183,25 @@ const (
 )
 ```
 
-A custom resource's status is how the user will know when the request is complete and what the result will be. Modify the `CheckWeatherStatus` struct to look support the new state and temperature fields. Also we'll need to add the _marker_ `+kubebuilder:subresource:status` to help the framework generate a status _subresource_ for our resource:
+A custom resource's status is how the user will know when the request is complete and what the result will be. Modify the `CheckWeatherStatus` struct to look support the new state and temperature fields. Also we'll need to add the _marker_ `+kubebuilder:subresource:status` to help the framework generate a status _subresource_ for our resource.
+
 ```go
 type CheckWeatherStatus struct {
   State       string `json:"state,omitempty"`
   Temperature int32  `json:"temperature"`
 }
 
+// +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
+
+// CheckWeather is the Schema for the checkweathers API
+type CheckWeather struct {
+  metav1.TypeMeta   `json:",inline"`
+  metav1.ObjectMeta `json:"metadata,omitempty"`
+
+  Spec   CheckWeatherSpec   `json:"spec,omitempty"`
+  Status CheckWeatherStatus `json:"status,omitempty"`
+}
 ```
 
 Side note: You might have noticed that there are a lot of comments like the one above in the files that kubebuilder provides. Kubebuilder relies on some generation to provide its functionality. Comment _markers_ tell the code generator what to do.
