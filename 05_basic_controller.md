@@ -183,7 +183,7 @@ type CheckWeatherStatus struct {
 
 Side note: You might have noticed that there are a lot of comments like the one above in the files that kubebuilder provides. Kubebuilder relies on some generation to provide its functionality. Comment _markers_ tell the code generator what to do.
 
-If this is too confusing check out the end result in the learning-aid repo.
+If this is too confusing check out the end result in the [example from the learning-aid repo](https://github.com/Manifaust/k8s-custom-resources-learning-aid/tree/main/examples/my-weather-app-crd).
 
 # Update the Controller Code
 
@@ -264,7 +264,7 @@ func currentTemp(city string) (int, error) {
 
 The function `currentTemp` is just a place holder for now to make things simpler. We'll implement the real thing later.
 
-If all that was too hard to read then check out the example from the learning-aid repo.
+If all that was too hard to read then check out [the example from the learning-aid repo](https://github.com/Manifaust/k8s-custom-resources-learning-aid/tree/main/examples/my-weather-app-crd).
 
 # Update the CheckWeather Sample Resource
 Delete the resource we created earlier.
