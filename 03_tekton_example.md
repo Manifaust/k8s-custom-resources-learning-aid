@@ -90,7 +90,7 @@ metadata:
         - "apply"
         - "-f"
         - "$(params.path)"
-        - "validate=false" 
+        - "--validate=false" 
 ```
 
 ## Delete Your Pipelines and Tasks
