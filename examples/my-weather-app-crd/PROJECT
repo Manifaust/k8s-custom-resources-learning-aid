@@ -1,0 +1,7 @@
+domain: example.com
+repo: github.com/Manifaust/k8s-custom-resources-learning-aid/examples/weather-app
+resources:
+- group: weather-app
+  kind: CheckWeather
+  version: v1alpha1
+version: "2"

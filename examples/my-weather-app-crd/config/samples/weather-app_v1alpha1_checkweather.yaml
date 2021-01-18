@@ -1,0 +1,6 @@
+apiVersion: weather-app.example.com/v1alpha1
+kind: CheckWeather
+metadata:
+  name: checkweather-sample
+spec:
+  city: "Mexico City"
