@@ -206,16 +206,8 @@ Update the controller to implement the Reconcile logic:
 4. If the state is `PENDING`, then read the target city from the spec, and check the weather. Write the current temperature to the status. Then set the state to `FINISHED`.
 5. If errors occur, then print a log message and requeue.
 
-Start by editing `controllers/checkweather_controller.go` to import the `apimachinery` `errors` module to be imported:
-```go
-import (
-  ...
-  "k8s.io/apimachinery/pkg/api/errors"
-  ...
-)
-```
+Start by editing `controllers/checkweather_controller.go` and updating the `Reconcile` function to implement the logic we described.
 
-Then modify the `Reconcile` function to implement the logic we described:
 ```go
 func (r *CheckWeatherReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error)
   ctx := context.Background()
