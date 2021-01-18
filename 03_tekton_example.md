@@ -102,4 +102,4 @@ $ kubectl delete --filename https://storage.googleapis.com/tekton-releases/pipel
 ```
 
 # Exercises
-* Complete the [kpack tutorial](https://github.com/pivotal/kpack/blob/master/docs/tutorial.md).
+* Complete the [kpack tutorial](https://github.com/pivotal/kpack/blob/master/docs/tutorial.md) to learn about another k8s service that relies on CRDs.
