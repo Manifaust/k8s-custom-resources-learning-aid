@@ -323,9 +323,9 @@ Status:
 ```
 
 # Implement the Weather Request (Optional)
-If the fake temperature is not satisfying, you can implement a real weather request. In order to do so, we will be using the OpenWeatherMap API, a free API for querying weather info. You will need to [sign up](http://home.openweathermap.org/users/sign_up) in order to obtain an API key.
+If the fake temperature is not satisfying, then you can implement a real weather request. In order to do so, you will be using the OpenWeatherMap API, a free API for querying weather info. You will need to [sign up on their website](http://home.openweathermap.org/users/sign_up) in order to obtain an API key.
 
-Once you have an API key, you will need to once again update `controllers/checkweather_controller.go`. Start by importing a [user-made OpenWeatherMap library](https://github.com/briandowns/openweathermap).
+Once you have an API key, you'll be able to add actual weather request logic to `controllers/checkweather_controller.go`. Start by importing this [user-made OpenWeatherMap library](https://github.com/briandowns/openweathermap).
 
 ```go
 import (
@@ -356,7 +356,9 @@ func currentTemp(city string) (int, error) {
 }
 ```
 
-Now once again delete our sample resource, perform `make install`, `make run`, and apply our sample resource again. When the controller has processed the request, it'll have set resource's status to have a real temperature.
+The code will take the API key and some basic configuration to create a client, then send a request to the OpenWeatherMap server. Warning: in a real production scenario you should not hard-code your API key in the code, it's not secure nor easy to update.
+
+To test it out, we once again delete our sample resource, perform `make install`, `make run`, and apply our sample resource again. When the controller has processed the request, it'll have set resource's status to have a real temperature.
 
 ```bash
 $ kubectl describe checkweather checkweather-sample
@@ -368,4 +370,4 @@ Name:         checkweather-sample
 You've just implemented a service where users can query the weather using a k8s resource, can you believe it?
 
 # Exercises
-* Use `kubebuilder create` to create another controller and CRD, call it WeatherWarning. This resource will read the status of a specific WeatherCheck resource, and if the temperature cold then a specified value, then it'll log a warning.
+* Use `kubebuilder create` to create another controller and CRD, call it WeatherWarning. This resource will read the status of a specific WeatherCheck resource, and if the temperature cold then a specified value, then it'll log a warning. Using a new CRD/controller to act on information from another resource is a common pattern for providing additional services while maintaining loose coupling between components.
