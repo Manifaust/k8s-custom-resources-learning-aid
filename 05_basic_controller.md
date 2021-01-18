@@ -29,7 +29,7 @@ export PATH=$PATH:/usr/local/kubebuilder/bin
 
 # Initialize Your Project
 
-When you initialize a kubebuilder project, the framewok will create an entire golang application for you with many files ready to be modified. The init command take several flags, for now we'll specify a _domain_ which makes up part of the _group_ name of your CRD. You'll also need a _repo_, which becomes your golang module path.
+When you initialize a kubebuilder project, the framewok will create an entire golang application for you with many files ready to be modified. The `init` command take several flags, for now we'll specify a _domain_ which makes up part of the _group_ name of your CRD. It will also need a _repo_, which becomes the golang module path for your new project.
 
 ```bash
 $ mkdir my-weather-app-crd
