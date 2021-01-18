@@ -1,4 +1,4 @@
-_This chapter points you introduces Tekton and points you to the tutorial. I mostly just list out all gotchas I found while going through the tutorial._
+_This chapter points you introduces Tekton and points you to the tutorial. I mostly just list out all the gotchas I found while going through the tutorial._
 
 # A k8s native CI/CD
 Tekton is a k8s native CI/CD tool. It is a good example of providing CustomResourceDefinitions as a way of extending the k8s API to provide useful functionality.
@@ -29,7 +29,7 @@ tkn taskrun describe my-task-run
 tkn taskrun logs my-task-run
 ```
 
-From my experience the most common issues that a novice will run into with this tutorial invovles accessing the image registry and providing Tekton the permissions to take action.
+From my experience the most common issues that a beginning will run into with this tutorial involves accessing the image registry and providing Tekton the permissions to take action.
 
 # Tutorial
 Try to go through the [Tekon tutorial](https://github.com/tektoncd/pipeline/blob/master/docs/tutorial.md) from top to bottom. It walks through installing Tekon, setting up tasks, and creating pipelines.
