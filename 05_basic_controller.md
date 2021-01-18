@@ -37,7 +37,7 @@ $ cd my-weather-app-crd
 $ kubebuilder init --domain example.com --repo github.com/Manifaust/k8s-custom-resources-learning-aid/examples/weather-app
 ```
 
-If you browse resulting folders and files of the resulting golang project, you'll see it has not created a CRD nor controller for you yet. But it's set up for one to be created. One thing you'll see is that the `go.mod` includes libraries from `apimachinery`, `client-go`, and `controller-runtime`. These libraries makes it easier creating controllers.
+If you browse the folders and files of the resulting golang project, you'll see it has not created a CRD nor controller for you yet. But everything is set up for one to be created. One thing you'll see is that the `go.mod` includes libraries from `apimachinery`, `client-go`, and `controller-runtime`. These libraries makes it easier to implement controllers and CRDs.
 
 ```bash
 $ less config/rbac/role_binding.yaml
@@ -52,7 +52,7 @@ require (
 )
 ```
 
-To create a CRD and controller, use the `kubebuilder create` command:
+To create a CRD and controller, use the `kubebuilder create` command. Here, `weather-app` makes up part of the group name (combined with the *domain* from earlier). `v1alpha1` is our CRD's version. And `CheckWeather` is the CRD's *kind*. You'll learn more about these concepts in the kubebuilder book.
 
 ```bash
 $ kubebuilder create api \
