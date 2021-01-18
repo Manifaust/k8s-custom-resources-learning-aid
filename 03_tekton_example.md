@@ -73,7 +73,7 @@ kubectl create clusterrole tutorial-role \
   --resource=deployments,deployments.apps,services
 ```
 
-Another edit you have to do: when the tutorial asks you to configure a new task named `deploy-using-kubectl`, you have to pass `validate=true` to the call to `kubectl`, like this:
+Another edit you have to do: when the tutorial asks you to configure a new task named `deploy-using-kubectl`, you have to pass `validate=false` to the call to `kubectl`, like this:
 
 ```yml
 apiVersion: tekton.dev/v1beta1
