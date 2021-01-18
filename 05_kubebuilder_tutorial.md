@@ -1,6 +1,13 @@
-Kubebuilder talks explains
-* What are CRDs, types, and controllers
-* How do you start building CRDs and controllers quickly
+_This chapter introduces the kubebuilder book. I mostly just list out all gotchas I found while going through the book._
+
+# Intro
+The [kubebuilder book](https://book.kubebuilder.io/) is many people's first introduction to how to write controllers. Chapter 1 guides the user through:
+* What are groups, version, kinds, CRDs, and controllers?
+* Implementing a controller that runs CronJobs for the user. Warning: the code snippets from the book are much more complex than the ones from the previous chapter of the learning-aid.
+* Implement validating webhooks.
+* Using kubebuilder for a basic start to containerizing and deploying your controller.
+
+Chapters 2, 3, and 4 of the book goes into other topics, but I recommend holding off on those until they become relevant to you.
 
 # Prerequisites
 * Install [kustomize](https://kubectl.docs.kubernetes.io/installation/kustomize/)

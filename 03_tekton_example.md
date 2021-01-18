@@ -1,3 +1,5 @@
+_This chapter points you introduces Tekton and points you to the tutorial. I mostly just list out all gotchas I found while going through the tutorial._
+
 # A k8s native CI/CD
 Tekton is a k8s native CI/CD tool. It is a good example of providing CustomResourceDefinitions as a way of extending the k8s API to provide useful functionality.
 
@@ -98,3 +100,6 @@ To delete all the k8s objects you creating, run `kubectl delete -f` for all that
 ```sh
 $ kubectl delete --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
 ```
+
+# Exercises
+* Complete the [kpack tutorial](https://github.com/pivotal/kpack/blob/master/docs/tutorial.md).
