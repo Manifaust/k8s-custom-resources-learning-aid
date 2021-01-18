@@ -88,7 +88,7 @@ An example custom resource based on your CRD. This is just like any other resour
 ## `controllers/checkweather_controller.go`
 This is our controller, it's where we'll check on all our resources and implement reconcilliation (described in an earlier chapter). The `Reconcile` function is where all the action starts, it gets called any time relevant changes occur. We'll be modifying this function later to add custom functionality.
 
-# Installing CRD
+# Installing your CRD
 Now we play the role of admin and install the CRD. We'll install it in a custom namespace as not to distrupt other parts of the cluster.
 
 ```bash
@@ -370,4 +370,4 @@ Name:         checkweather-sample
 You've just implemented a service where users can query the weather using a k8s resource, can you believe it?
 
 # Exercises
-* Use `kubebuilder create` to create another controller and CRD, call it WeatherWarning. This resource will read the status of a specific WeatherCheck resource, and if the temperature cold then a specified value, then it'll log a warning. Using a new CRD/controller to act on information from another resource is a common pattern for providing additional services while maintaining loose coupling between components.
+* Use `kubebuilder create` to create another controller and CRD, call it WeatherWarning. This resource will read the status of a specific WeatherCheck resource, and if the temperature is colder than a configured value, then it'll log a warning. Using a new CRD/controller to act on information from another resource is a common pattern for providing additional services while maintaining loose coupling between components.
