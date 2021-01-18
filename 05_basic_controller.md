@@ -71,7 +71,7 @@ controllers/checkweather_controller.go
 
 Here are some of the files that's been generated:
 ## `api/v1alpha1/checkweather_types.go`
-this defines properties of the _spec_ and _status_ for your CRD. You'll customize this file later. For now, just take note the that spec contains only one field `Foo`, and the status contains no fields yet.
+This file defines properties of the _spec_ and _status_ of your CRD. You'll customize this file later. For now, just take note the that spec contains only one field `Foo`, and the status contains no fields yet.
 
 ## `config/samples/weather-app_v1alpha1_checkweather.yaml`
 ```bash
@@ -85,7 +85,7 @@ spec:
   foo: bar
 ```
 
-An example custom resource based on your CRD. This is just like any other resource yaml such as those for pods, replicasets, or deployments. Your users will write ad apply yamls like this to create custom resources based on your definition. Like any other resource yaml, the `apiVersion` property specifies the desired group, in this case `weather-app.example.com`, and the desired version, in this case `v1alpha1`. The `kind` of our CRD is `CheckWeather`, which is what we provided in `kubebuilder create` command. The `spec` has the `foo` property as declared in `checkweather_types.go`. When we add more spec fields in `checkweather_types.go`, users will be able to add more fields to the spec portion of their resource yaml.
+An example custom resource based on your CRD. This is just like any other resource yaml such as those for pods, replicasets, or deployments. Your users will write and apply yamls like this to create custom resources based on your definition. Like any other resource yaml, the `apiVersion` property specifies the desired group, in this case `weather-app.example.com`, and the desired version, in this case `v1alpha1`. The `kind` of our CRD is `CheckWeather`, which is what we provided in `kubebuilder create` command. The `spec` has the `foo` property as declared in `checkweather_types.go`. When we add more spec fields in `checkweather_types.go`, users will be able to add more fields to the spec portion of their resource yaml.
 
 ## `controllers/checkweather_controller.go`
 This is our controller, it's where we'll check on all our resources and implement reconcilliation (described in an earlier chapter). The `Reconcile` function is where all the action starts, it gets called any time relevant changes occur. We'll be modifying this function later to add custom functionality.
