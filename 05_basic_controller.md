@@ -385,4 +385,18 @@ Name:         checkweather-sample
 You've just implemented a service where users can query the weather using a k8s resource, can you believe it?
 
 # Exercises
-* Use `kubebuilder create` to create another controller and CRD, call it WeatherWarning. This resource will read the status of a specific WeatherCheck resource, and if the temperature is colder than a configured value, then it'll log a warning. Using a new CRD/controller to act on information from another resource is a common pattern for providing additional services while maintaining loose coupling between components.
+## A CRD that References Another CRD
+Use `kubebuilder create` to create another controller and CRD, call it WeatherWarning. This resource will read the status of a specific WeatherCheck resource, and if the temperature is colder than a configured value, then it'll log a warning. Using a new CRD/controller to act on information from another resource is a common pattern for providing additional services while maintaining loose coupling between components.
+
+Here is a example of a resource yaml for that CRD might look like.
+
+```yaml
+apiVersion: weather-app.example.com/v1alpha1
+kind: WeatherWarning
+metadata:
+  name: weatherwarning-sample
+spec:
+  target-check-name: checkweather-sample
+  target-check-namespace: weather-testing
+  temp-threshold: -7
+```
