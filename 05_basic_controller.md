@@ -8,7 +8,9 @@ There are other frameworks too, such as [Operator SDK](https://github.com/operat
 Developers are still figuring out how to make implementing controller easier so these frameworks are not perfectly. You'll find that some tools and processes are a bit clunky, and you'll likely run into more boilerplate code than you want. It's all because this is such a new area of growth in k8s development, and it's part of the fun!
 
 # Install Kubebuilder
-Use the snippet below to install kubebuilder. At the time of writing, the newest version of kubebuilder is `3.0.0-alpha.1`. Version 3 is new enough that the kubebuilder book - which is the focus of the next chapter - hasn't been updated to incorporate it. For this reason we're sticking with an older version `2.3.1`. Once you finish the book, you should read the migration docs for version 3.
+First install [kustomize](https://kubectl.docs.kubernetes.io/installation/kustomize/), which a dependency of kubebuilder.
+
+After that, use the snippet below to install kubebuilder. At the time of writing, the newest version of kubebuilder is `3.0.0-alpha.1`. Version 3 is new enough that the kubebuilder book - which is the focus of the next chapter - hasn't been updated to incorporate it. For this reason we're sticking with an older version `2.3.1`. Once the book is updated, or you become very comfortable with kubebuilder, then you should read the migration docs for version 3.
 
 ```bash
 os=$(go env GOOS)
