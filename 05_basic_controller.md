@@ -360,7 +360,7 @@ func currentTemp(city string) (int, error) {
 }
 ```
 
-The code will take the API key and some basic configuration to create a client, then send a request to the OpenWeatherMap server. Warning: in a real production scenario you should not hard-code your API key in the code, it's not secure nor easy to update. Furthermore, you should be careful what kind of network calls or other potentially slow requests create because a controller might have to scale to support handling many resources. It might be better to offload work to a pod or job, and check the status of the pod from the controller. The example in the kubebuilder book will show you how to do that.
+The code will take the API key and some basic configuration to create a client, then send a request to the OpenWeatherMap server. Warning: in a real production scenario you should not hard-code your API key in the code, it's not secure nor easy to update. Furthermore, you should be careful what kind of network calls or other potentially slow requests create because a controller might have to scale to support handling many resources. With our current implementation, if our controller encounters a hundred CheckWeather resources, then a single slow OpenWeatherMap response could become a bottle neck for the whole service. It might be better to offload work to a pod or job, then check the status of the pod from the controller. The example in the kubebuilder book will show you how to do that.
 
 To test it out, we once again delete our sample resource, perform `make install`, `make run`, and apply our sample resource again. When the controller has processed the request, it'll have set resource's status to have a real temperature.
 
