@@ -95,13 +95,14 @@ Now we play the role of admin and install the CRD. We'll install it in a custom 
 
 ```bash
 $ kubectl create namespace weather-testing
-$ kubectl config set-context $(kubectl config current-context) --namespace=weather-test
+$ kubectl config set-context $(kubectl config current-context) --namespace=weather-testing
+
 $ make install
 go: creating new go.mod: module tmp
 go: found sigs.k8s.io/controller-tools/cmd/controller-gen in sigs.k8s.io/controller-tools v0.2.5
 /Users/tony/workspace/go/bin/controller-gen "crd:trivialVersions=true" rbac:roleName=manager-role webhook paths="./..." output:crd:artifacts:config=config/crd/bases
-kustomize build config/crd | kubectl --kubeconfig=/Users/tony/workspace/try-calatrava/gc.kubeconfig apply -f -
-customresourcedefinition.apiextensions.k8s.io/checkweathers.weather-app.example.com created
+kustomize build config/crd | kubectl apply -f -
+customresourcedefinition.apiextensions.k8s.io/checkweathers.weather-app.example.com configured
 
 $ kubectl get crds
 NAME                                    CREATED AT
@@ -115,16 +116,25 @@ $ KUBECONFIG=<my_kubeconfig_location> make install
 ```
 
 # Run the Controller
-In a real production cluster, your controller is deployed like a regular k8s deployment. During our current testing, we'll instead just run the controller locally on our computer as a normal golang app.
+In a real production cluster, your controller is deployed in a regular k8s deployment. During our testing however, we'll instead just run the controller locally on our computer as a normal golang app.
 
 ```bash
 $ make run
+go: creating new go.mod: module tmp
+go: found sigs.k8s.io/controller-tools/cmd/controller-gen in sigs.k8s.io/controller-tools v0.2.5
+/Users/tony/workspace/go/bin/controller-gen object:headerFile="hack/boilerplate.go.txt" paths="./..."
+go fmt ./...
+go vet ./...
+/Users/tony/workspace/go/bin/controller-gen "crd:trivialVersions=true" rbac:roleName=manager-role webhook paths="./..." output:crd:artifacts:config=config/crd/bases
+go run ./main.go
+2021-01-18T11:19:23.345-0500	INFO	controller-runtime.metrics	metrics server is starting to listen	{"addr": ":8080"}
+...
 ```
 
 # Create a Custom Resource
 Now that the namespace has your CRD installed, and your controller is running, it's time to play the role of the user and create a custom resource.
 
-Open another terminal and use `kubectl apply` with the custom resource example we described earlier.
+Open another terminal and use `kubectl apply` with the custom resource example we pointed to earlier.
 
 ```bash
 $ kubectl apply -f config/samples/weather-app_v1alpha1_checkweather.yaml
